@@ -1,0 +1,61 @@
+{
+  "name": "coreui-admin",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://hctru68.github.io/deploy-github/",
+  "dependencies": {
+    "@coreui/coreui": "^2.1.0",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.1.0",
+    "bootstrap": "^4.1.3",
+    "chart.js": "^2.7.3",
+    "classnames": "^2.2.6",
+    "core-js": "^2.5.7",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "flag-icon-css": "^3.2.1",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.10.0",
+    "node-sass-chokidar": "^1.3.4",
+    "npm-run-all": "^4.1.3",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.1",
+    "react-app-polyfill": "^0.1.3",
+    "react-chartjs-2": "^2.7.2",
+    "react-dom": "^16.6.1",
+    "react-loadable": "^5.5.0",
+    "react-router-config": "^4.4.0-beta.6",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "react-table": "^6.8.6",
+    "react-test-renderer": "^16.6.1",
+    "reactstrap": "^6.5.0",
+    "simple-line-icons": "^2.4.1",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm-run-all build-css build-js",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "start-js": "react-scripts start",
+    "build-js": "react-scripts build",
+    "test-js": "react-scripts test",
+    "eject-js": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
