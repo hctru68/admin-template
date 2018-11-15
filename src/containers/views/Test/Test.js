@@ -1,186 +1,91 @@
-import React, { Component } from 'react';
-import uid from 'uuid';
+/* eslint-disable no-unused-vars */
+import React, { Component } from "react";
+import uid from "uuid";
+import { css } from 'react-emotion';
+import { RingLoader } from 'react-spinners';
 import ReactTable from "react-table";
-import 'react-table/react-table.css'
-import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import "react-table/react-table.css";
+import {
+  Card, CardBody, CardHeader, Col, Row,
+  Badge, Pagination, PaginationItem, PaginationLink, Table
+} from "reactstrap";
+import { translate } from 'react-i18next';
+import key from '../../../i18n/translationKeys';
 
-const fieldsName = [
-  {
-    key: 'UserId',
-    description: 'User Id'
-  },
-  {
-    key: 'UserName',
-    description: 'User Name'
-  },
-  {
-    key: 'DateRegistered',
-    description: 'Date registered'
-  },
-  {
-    key: 'RoleName',
-    description: 'Role Name'
-  },
-  {
-    key: 'Status',
-    description: 'Status'
-  },
-];
-const responseByAPI = [
-  {
-    UserId: 1,
-    UserName: 'Huynh Cong Tru',
-    DateRegistered: new Date(),
-    RoleName: 'Administrator',
-    Status: 'Active',
-  },
-  {
-    UserId: 2,
-    UserName: 'Nguyen Van Thi',
-    DateRegistered: new Date(),
-    RoleName: 'Moderator',
-    Status: 'InActive',
-  },
-  {
-    UserId: 3,
-    UserName: 'Phan Quoc Cuong',
-    DateRegistered: new Date(),
-    RoleName: 'Super Moderator',
-    Status: 'Pending',
-  },
-];
-const response = {
-  initial_data: [
-    {
-       "UserId": 1,
-       "UserName": "Huynh Cong Tru",
-       "DateRegistered": "2018-11-11T18:01:53.024Z",
-       "RoleName": "Administrator",
-       "Status": "Active"
-    },
-    {
-       "UserId": 2,
-       "UserName": "Nguyen Van Thi",
-       "DateRegistered": "2018-11-11T18:01:53.024Z",
-       "RoleName": "Moderator",
-       "Status": "InActive"
-    },
-    {
-       "UserId": 3,
-       "UserName": "Phan Quoc Cuong",
-       "DateRegistered": "2018-11-11T18:01:53.024Z",
-       "RoleName": "Super Moderator",
-       "Status": "Pending"
-    },
-    {
-      "UserId": 4,
-      "UserName": "Huynh Cong Tru",
-      "DateRegistered": "2018-11-11T18:01:53.024Z",
-      "RoleName": "Administrator",
-      "Status": "Active"
-   },
-   {
-      "UserId": 5,
-      "UserName": "Nguyen Van Thi",
-      "DateRegistered": "2018-11-11T18:01:53.024Z",
-      "RoleName": "Moderator",
-      "Status": "InActive"
-   },
-   {
-      "UserId": 6,
-      "UserName": "Phan Quoc Cuong",
-      "DateRegistered": "2018-11-11T18:01:53.024Z",
-      "RoleName": "Super Moderator",
-      "Status": "Pending"
-   }
- ]
-};
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: green;
+`;
 class Test extends Component {
-
-  printFieldsHeadOfTable = (fields) => {
-    return (
-      <thead>
-        <tr>
-          {
-            fields.map((field, index) => {
-              return (
-                <th key={uid()}>{field.description}</th>
-              )
-            })
-          }
-        </tr>
-      </thead>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: []
+    };
   }
-  printRowsInTable = (fields, data) => {
-    return (
-      <tbody>
-        {
-          data.map((row, index) => {
-            const field = fields[index].key;
-            console.log(field);
-            return (
-              <tr key={index}>
-                <td align="center">{row[`UserId`]}</td>
-                <td>{row.UserName}</td>
-                <td>{row.DateRegistered.toLocaleDateString()}</td>
-                <td>{row.RoleName}</td>
-                <td>
-                  <Badge color={row.Status === 'Active' ? 'success' : (row.Status === 'InActive' ? 'danger' : 'warning')}>{row.Status}</Badge>
-                </td>
-              </tr>
-            )
-          })
+  callApiListItems = () => {
+    let proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    let targetUrl = "http://limitless-dawn-42115.herokuapp.com/initial";
+    fetch(proxyUrl + targetUrl)
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        error => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-      </tbody>
-    );
+      );
+  };
+  componentDidMount() {
+    this.callApiListItems();
   }
   render() {
-    const data = response.initial_data;
-    const columns = Object.keys(response.initial_data[0]).map((key, id) => {
-      return {
-        Header: key,
-        accessor: key
+    const { t } = this.props;
+    const { error, isLoaded, items } = this.state;
+    const classAnimated = 'animated fadeIn';
+    if (error) {
+      return <div className={classAnimated}>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <RingLoader className={override} sizeUnit={"px"}
+        size={100} color={'#86E7D4'} loading={!isLoaded}
+      />
+    } else {
+      const data = items;
+      const columns = Object.keys(items[0]).map((key, id) => {
+        return { Header: key, accessor: key };
+      });
+      const propsOfTable = {
+        data: data, columns: columns,
+        defaultPageSize: 5, filterable: true,
       }
-    });
-    return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" lg="12">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Bordered Table
-              </CardHeader>
-              <CardBody>
-                <ReactTable
-                  data={data}
-                  columns={columns}
-                  defaultPageSize={5}
-                  className='responsive bordered'
-                />
-                <br />
-                <Table responsive bordered>
-                  {this.printFieldsHeadOfTable(fieldsName)}
-                  {this.printRowsInTable(fieldsName, responseByAPI)}
-                </Table>
-                <Pagination>
-                  <PaginationItem><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem className="page-item"><PaginationLink tag="button">2</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">3</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                </Pagination>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-
-    );
+      return (
+        <div className={classAnimated}>
+          <Row>
+            <Col xs="12" lg="12">
+              <Card>
+                <CardHeader>
+                  <i className="fa fa-users text-primary" /> {t(key.message.gridTitle)}
+                </CardHeader>
+                <CardBody>
+                  <ReactTable {...propsOfTable} />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
   }
 }
 
-export default Test;
+export default translate()(Test);

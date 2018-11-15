@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink,
+  FormGroup, Col, Label, Input
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
@@ -39,6 +42,17 @@ class DefaultHeader extends Component {
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
+
+
+
+
+          <NavItem className="d-md-down-none">
+            <Input type="select" name="select" id="select" className="mrTop15">
+              <option value="">Please select language</option>
+              <option value="vi">Vietnamese</option>
+              <option value="en">English</option>
+            </Input>
+          </NavItem>
           <NavItem className="d-md-down-none">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
           </NavItem>
