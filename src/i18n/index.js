@@ -5,10 +5,10 @@ import vi from './vietnamese';
 
 i18n.use(LanguageDetector).init({
     resources: {
-        // en: en,
-        vi: vi,
+        en: en,       
     },
-    fallbackLng: 'vi',
+    lng: 'en',
+    fallbackLng: ['en', 'vi'],
     ns: ['translations', 'message',],
     defaultNS: 'translations',
     keySeparator: false,
@@ -19,6 +19,15 @@ i18n.use(LanguageDetector).init({
     react: {
         wait: true,
     },
+});
+
+// catch the event and make changes accordingly
+i18n.on('languageChanged', function(lng) {
+    // E.g. set the moment locale with the current language
+    //moment.locale(lng);
+
+    // then re-render your app
+    //app.render();
 });
 
 export default i18n;
