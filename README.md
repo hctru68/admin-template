@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[View DEMO](https://hctru68.github.io/admin-template/).
 
 ## Available Scripts
 
