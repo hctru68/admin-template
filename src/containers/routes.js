@@ -1,6 +1,5 @@
 import React from 'react';
-import Loadable from 'react-loadable'
-
+import Loadable from 'react-loadable';
 import DefaultLayout from './layout';
 
 function Loading() {
@@ -162,11 +161,6 @@ const Colors = Loadable({
   loading: Loading,
 });
 
-const Test = Loadable({
-  loader: () => import('./views/Test'),
-  loading: Loading,
-});
-
 const Typography = Loadable({
   loader: () => import('./views/Theme/Typography'),
   loading: Loading,
@@ -182,19 +176,30 @@ const Users = Loadable({
   loading: Loading,
 });
 
-const User = Loadable({
+const User2 = Loadable({
   loader: () => import('./views/Users/User'),
   loading: Loading,
 });
-
-
-
+// START ADMINISTRATOR
+const Role = Loadable({
+  loader: () => import('./pages/Role'),
+  loading: Loading,
+});
+const User = Loadable({
+  loader: () => import('./pages/User'),
+  loading: Loading,
+});
+const Test = Loadable({
+  loader: () => import('./views/Test'),
+  loading: Loading,
+});
+//
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/theme', exact: true, name: 'Theme', component: Colors },
-  { path: '/test', name: 'Test', component: Test },
+  { path: '/theme', exact: true, name: 'Theme', component: Colors }, 
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
@@ -232,7 +237,11 @@ const routes = [
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/users/:id', exact: true, name: 'User Details', component: User2 },
+  // START CODE ADMINISTRATOR
+  { path: '/role', name:'Role', component: Role },
+  { path: '/user', name:'User', component: User },
+  { path: '/test', name: 'Test', component: Test },
 ];
 
 export default routes;

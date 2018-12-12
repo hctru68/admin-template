@@ -21,9 +21,8 @@ import routes from '../routes';
 import DefaultAside from './aside/aside';
 import DefaultFooter from './footer/footer';
 import DefaultHeader from './header/header';
-
 export class DefaultLayout extends Component {
-  render() {
+render() {
     return (
       <div className="app">
         <AppHeader fixed>

@@ -1,1 +1,33 @@
 // Here you can add other styles
+.label-status {
+    min-width: 65px;
+}
+
+.label-button-confirm {
+    min-width: 66px;
+}
+
+.header-table {
+    font-weight: 600;
+}
+
+.handle-pointer {
+    cursor: pointer;
+}
+
+// Class common for LOADING... center
+.container-fluid>div {
+    display: block;
+    margin: 0 auto;
+    border-color: green;
+}
+
+// Overlay processing...highest in layout
+._loading_overlay_overlay {
+    z-index: 1022;
+}
+.overlayFullScreen {
+    width: 100%; 
+    height: 100%;
+    position: static !important;
+}

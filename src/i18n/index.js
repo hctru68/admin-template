@@ -1,13 +1,18 @@
+/* eslint-disable no-unused-vars */
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './english';
 import vi from './vietnamese';
+import { getLocalStorage } from '../utilities/storage';
+import { getLanguageDefault } from '../utilities/languageDefault';
+import { common } from '../contants/common';
 
 i18n.use(LanguageDetector).init({
     resources: {
-        en: en,       
+        en: en,
+        vi: vi,
     },
-    lng: 'en',
+    lng: getLanguageDefault(),
     fallbackLng: ['en', 'vi'],
     ns: ['translations', 'message',],
     defaultNS: 'translations',
@@ -20,14 +25,4 @@ i18n.use(LanguageDetector).init({
         wait: true,
     },
 });
-
-// catch the event and make changes accordingly
-i18n.on('languageChanged', function(lng) {
-    // E.g. set the moment locale with the current language
-    //moment.locale(lng);
-
-    // then re-render your app
-    //app.render();
-});
-
 export default i18n;

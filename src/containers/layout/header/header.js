@@ -1,13 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import {
-  Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink,
-  FormGroup, Col, Label, Input
+  Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, Input
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import i18n from 'i18next';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../../assets/common/logo.svg'
-import sygnet from '../../../assets/common/sygnet.svg'
+import logo from '../../../assets/common/logo.svg';
+import sygnet from '../../../assets/common/sygnet.svg';
+import { setLocalStorage } from '../../../utilities/storage';
+import { getLanguageDefault } from '../../../utilities/languageDefault';
+import { commonConstant } from '../../../contants/common';
 
 const propTypes = {
   children: PropTypes.node,
@@ -16,8 +20,21 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = { value: getLanguageDefault() };
+    this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
+  }
 
+  handleChangeLanguage(event) {
+    if (event && event.target && event.target.value) {
+      this.setState({ value: event.target.value });
+      setLocalStorage(commonConstant.system.TRANSLATION_KEY, event.target.value);
+      i18n.changeLanguage(event.target.value);
+    }
+  }
+
+  render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
 
@@ -42,13 +59,11 @@ class DefaultHeader extends Component {
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
-
-
-
-
           <NavItem className="d-md-down-none">
-            <Input type="select" name="select" id="select" className="mrTop15">
-              <option value="">Please select language</option>
+            <Input type="select" name="select" id="select" className="mrTop15"
+              value={this.state.value}
+              onChange={this.handleChangeLanguage}
+            >
               <option value="vi">Vietnamese</option>
               <option value="en">English</option>
             </Input>
