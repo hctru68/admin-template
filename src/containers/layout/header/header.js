@@ -12,16 +12,16 @@ import sygnet from '../../../assets/common/sygnet.svg';
 import { setLocalStorage } from '../../../utilities/storage';
 import { getLanguageDefault } from '../../../utilities/languageDefault';
 import { commonConstant } from '../../../contants/common';
+import { setSessionStorage } from '../../../utilities/storage';
 
 const propTypes = {
   children: PropTypes.node,
 };
-
 const defaultProps = {};
 
 class DefaultHeader extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = { value: getLanguageDefault() };
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
   }
@@ -31,6 +31,14 @@ class DefaultHeader extends Component {
       this.setState({ value: event.target.value });
       setLocalStorage(commonConstant.system.TRANSLATION_KEY, event.target.value);
       i18n.changeLanguage(event.target.value);
+    }
+  }
+  handleLogout = () => {
+    setSessionStorage(commonConstant.AUTH_ID, null);
+    setSessionStorage(commonConstant.AUTH_TOKEN, null);
+    setSessionStorage(commonConstant.AUTH_EXPIRES_IN, null);
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
     }
   }
 
@@ -94,7 +102,7 @@ class DefaultHeader extends Component {
               <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
               <DropdownItem divider />
               <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-              <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>

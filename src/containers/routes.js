@@ -195,11 +195,10 @@ const Test = Loadable({
 });
 //
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
-
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/theme', exact: true, name: 'Theme', component: Colors }, 
+  { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
@@ -236,11 +235,11 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User2 },
   // START CODE ADMINISTRATOR
-  { path: '/role', name:'Role', component: Role },
-  { path: '/user', name:'User', component: User },
+  { path: '/role', name: 'Role', component: Role },
+  { path: '/user', name: 'User', component: User },
   { path: '/test', name: 'Test', component: Test },
 ];
 

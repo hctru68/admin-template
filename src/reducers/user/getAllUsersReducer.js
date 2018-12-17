@@ -1,5 +1,5 @@
 import { handleActions } from "redux-actions";
-import { ROLE } from "../../actionTypes/role";
+import { USER } from "../../actionTypes/user";
 
 const initialState = {
   isLoading: false,
@@ -8,15 +8,15 @@ const initialState = {
 };
 
 const actions = {
-  [ROLE.ROLE_DELETE]: () => ({
+  [USER.USER_GETALL]: () => ({
     isLoading: true,
   }),
-  [ROLE.ROLE_DELETE_SUCCESS]: (state, { payload: responseData }) => ({
+  [USER.USER_GETALL_SUCCESS]: (state, { payload: responseData }) => ({
     ...state,
     isLoading: false,
-    responseData: responseData.response ? responseData.response : responseData,
+    responseData:responseData,
   }),
-  [ROLE.ROLE_DELETE_FAILURE]: (state, { payload: responseData }) => ({
+  [USER.USER_GETALL_FAILURE]: (state, { payload: responseData }) => ({
     ...state,
     isLoading: false,
     isError: true,

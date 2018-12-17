@@ -1,9 +1,11 @@
 import { combineEpics } from 'redux-observable';
 import { getAllRoleEpic, changeStatusRoleEpic, deleteRoleEpic } from '../epics/roleEpic';
-import userEpic from '../epics/userEpic';
+import { getAllUserEpic, changeStatusUserEpic, deleteUserEpic } from '../epics/userEpic';
+import { loginEpic } from '../epics/loginEpic';
 
 const rootEpic = combineEpics(
     getAllRoleEpic, changeStatusRoleEpic, deleteRoleEpic, 
-    userEpic
+    getAllUserEpic, changeStatusUserEpic, deleteUserEpic, 
+    loginEpic, 
 );
 export default rootEpic;

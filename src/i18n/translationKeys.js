@@ -6,13 +6,15 @@ export default {
     button: {
         btnOk: 'button:btnOk',
         btnCancel: 'button:btnCancel',
+        btnLogin: 'button:btnLogin',
+        btnRegister: 'button:btnRegister',
     },
     message: {
-        //API
+        // API
         errorGetAllAPI: 'message:errorGetAllAPI',
         noDataFound: 'message:noDataFound',
 
-        //MODAL CONFIRM
+        // MODAL CONFIRM
         infoTitleConfirmModal: 'message:infoTitleConfirmModal',
 
         switchStatusConfirmModal: 'message:switchStatusConfirmModal',
@@ -25,16 +27,36 @@ export default {
         deleteSuccessInfo: 'message:deleteSuccessInfo',
         deleteErrorInfo: 'message:deleteErrorInfo',
 
-        //USERS
+        // LOGIN
+        loginTitle: 'message:loginTitle',
+        loginSubTitle: 'message:loginSubTitle',
+        loginUsernameOrEmail: 'message:loginUsernameOrEmail',
+        loginPassword: 'message:loginPassword',
+        loginErrorMessage: 'message:loginErrorMessage',
+        loginErrorMsgUsername: 'message:loginErrorMsgUsername',
+        loginErrorMsgPassword: 'message:loginErrorMsgPassword',
+
+        // REGISTER
+        registerTitle: 'message:registerTitle',
+        registerSubTitle: 'message:registerSubTitle',
+
+        //FORGET PW
+        forgetPwTitle: 'message:forgetPwTitle',
+        forgotPwLink: 'message:forgotPwLink',
+
+        // USERS
         usersList: 'message:usersList',
 
-        //ROLES
+        // ROLES
         rolesList: 'message:rolesList',
 
-        //STATUS
+        // STATUS
         active: 'message:active',
         inActive: 'message:inActive',
         deleted: 'message:deleted',
         pending: 'message:pending',
+
+        // SPINNER
+        processingSpinner: 'message:processingSpinner',
     }
 };

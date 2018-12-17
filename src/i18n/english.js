@@ -6,13 +6,15 @@ export default {
     button: {
         btnOk: 'OK',
         btnCancel: 'Cancel',
+        btnLogin: 'Login',
+        btnRegister: 'Register Now!',
     },
     message: {
-        //API
+        // API
         errorGetAllAPI: 'Error: An error occurred while loading the list from the server.',
         noDataFound: 'No data found.',
 
-        //MODAL CONFIRM
+        // MODAL CONFIRM
         infoTitleConfirmModal: 'Information confirm',
 
         switchStatusConfirmModal: 'Are you sure want to switch status?',
@@ -25,16 +27,37 @@ export default {
         deleteSuccessInfo: 'Delete successfully.',
         deleteErrorInfo: 'An error occurred while deleting!',
 
-        //USERS
+        // LOGIN
+        loginTitle: 'Login',
+        loginSubTitle: 'Sign In to your account',
+        loginUsernameOrEmail: 'Username or Email',
+        loginPassword: 'Password',
+        loginErrorMessage: 'Username or password is invalid!',
+        loginErrorMsgUsername: 'Username cannot empty!',
+        loginErrorMsgPassword: 'Password cannot empty!',
+
+        // REGISTER
+        registerTitle:'Sign up',
+        registerSubTitle:'If you do not have an account, you can click the button below to create a personal account. Once created successfully you can login to go to the site administration.',
+
+        // FORGET PW
+        forgetPwTitle:'Forget Password',
+        forgotPwLink:'Forgot password?',
+
+        // USERS
         usersList: 'Users list',
 
-        //ROLES
+        // ROLES
         rolesList: 'Roles list',
         
-        //STATUS
+        // STATUS
         active: 'Active',
         inActive: 'InActive',
         deleted: 'Deleted',
         pending: 'Pending',
+
+        // SPINNER
+        processingSpinner: 'Processing...',
+
     }
 }

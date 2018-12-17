@@ -5,6 +5,7 @@ import ReactTable from "react-table";
 import { translate } from 'react-i18next';
 import key from '../../../i18n/translationKeys';
 import { Card, CardBody, CardHeader, Col, Row, Badge } from "reactstrap";
+import { AppSwitch } from '@coreui/react';
 import { RingLoader } from 'react-spinners';
 import LoadingOverlay from 'react-loading-overlay';
 import { toastr } from 'react-redux-toastr';
@@ -12,6 +13,7 @@ import { ConfirmModal } from '../../../components/modals/confirmModal';
 import { getAllRoles, changeStatusRole, deleteRole } from '../../../actions/role';
 import { commonConstant } from '../../../contants/common';
 import { isNullOrEmptyObject, removeItemFromItems } from '../../../utilities/validate';
+import { getSessionStorage, setSessionStorage } from '../../../utilities/storage';
 
 var _handleItem = null;
 var _currentAtion = null;
@@ -22,6 +24,7 @@ class Role extends Component {
         this.state = {
             isShowStatusConfirmModal: false,
             isShowDeleteConfirmModal: false,
+            isEnableFilter: getSessionStorage(commonConstant.FILTER_ROLE) === 'true' ? true : false,
         };
     }
 
@@ -50,6 +53,7 @@ class Role extends Component {
                 changeStatus.isError ? toastr.error(t(key.message.switchStatusInfo), t(key.message.switchStatusErrorInfo)) :
                     toastr.success(t(key.message.switchStatusInfo), t(key.message.switchStatusSuccessInfo));
             }
+            _currentAtion = null;
         }
     }
     openModalChangeStatus = (item) => {
@@ -84,6 +88,12 @@ class Role extends Component {
     }
     handleEdit = (item) => {
         console.log('handleEdit', item);
+    }
+    handleSwitchFilter = () => {
+        setSessionStorage(commonConstant.FILTER_ROLE, !this.state.isEnableFilter)
+        this.setState({
+            isEnableFilter: !this.state.isEnableFilter,
+        });
     }
     renderMainContent(data, t, classAnimated, isLoadingDelete) {
         let columns = Object.keys(data[0]).map((key, id) => {
@@ -140,16 +150,25 @@ class Role extends Component {
             data: data,
             columns: columns,
             defaultPageSize: 10,
+            filterable: this.state.isEnableFilter,
         }
         return (
-
             <div className={classAnimated}>
-                <LoadingOverlay active={isLoadingDelete} spinner text='Processing...' className="overlayFullScreen" />
+                <LoadingOverlay active={isLoadingDelete} spinner text={t(key.message.processingSpinner)} className="overlayFullScreen" />
                 <Row>
                     <Col xs="12" lg="12">
                         <Card>
                             <CardHeader>
-                                <i className="fa fa-roles text-primary" /> {t(key.message.rolesList)}
+                            <Row>
+                                    <Col xs="6">
+                                    <i className="fa fa-roles text-primary" /> {t(key.message.rolesList)}
+                                    </Col>
+                                    <Col xs="6" className={'text-right'} title="Enables or disables data filtering of columns in the table.">
+                                        Filter
+                                        <AppSwitch className={'filter-users float-right mx-1'} variant={'pill'} color={'primary'}
+                                            onChange={this.handleSwitchFilter} checked={this.state.isEnableFilter} />
+                                    </Col>
+                                </Row>
                             </CardHeader>
                             <CardBody>
                                 <ReactTable {...propsOfTable} />
